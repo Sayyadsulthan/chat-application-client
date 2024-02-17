@@ -7,8 +7,8 @@
 .App{
   background:linear-gradient(10deg , rgb(224, 54, 54), pink, rgb(154, 90, 101));
   height: 100vh;
-  animation: colorChange 5s infinite linear;
-  transition: all ease-in-out;
+  animation: colorChange 5s infinite;
+  transition: all 0.5s ;
   padding: 10%;
   display: flex;
   justify-content: center;
@@ -67,12 +67,15 @@
 
 
 
-/* 
-@keyframes colorChange {
-    from{
+
+/* @keyframes colorChange {
+    0%{
       background:linear-gradient(10deg , rgb(224, 54, 54), pink, rgb(154, 90, 101));
     }
-    to{
+    50%{
+      background:linear-gradient(10deg , pink, rgb(154, 90, 101),  rgb(224, 54, 54));
+    }
+    100%{
       background:linear-gradient(10deg ,  rgb(154, 90, 101), pink, rgb(224, 54, 54));
     }
 } */

@@ -8,7 +8,12 @@ const socket = io('http://127.0.0.1:8000');
 function App() {
     const [formData, setFormData] = useState({ user: '', room: '' });
     const [isWindowOpen, setIsWindowOpen] = useState(false);
-    const [messageList, setMessageList] = useState([]);
+    const [messageList, setMessageList] = useState([
+        { user: 'sayyad', chat: 'loeam bacs' },
+        { user: 'sayyad', chat: 'loeam bacs' },
+        { user: 'usman', chat: 'loeam bacs' },
+        { user: 'usman', chat: 'loeam bacs' },
+    ]);
     // add this in component of  chat
     const [chat, setChat] = useState('');
     const [allUsers, setAllUsers] = useState([]);
