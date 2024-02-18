@@ -3,33 +3,28 @@ import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import ChatCard from './components/ChatCard/ChatCard';
 import RoomCard from './components/RoomCard/RoomCard';
+import { toast } from 'react-toastify';
 
-const socket = io('http://127.0.0.1:8000');
+const socket = io(process.env.REACT_APP_BASE_URL);
 function App() {
     const [formData, setFormData] = useState({ user: '', room: '' });
     const [isWindowOpen, setIsWindowOpen] = useState(false);
-    const [messageList, setMessageList] = useState([
-        { user: 'sayyad', chat: 'loeam bacs' },
-        { user: 'sayyad', chat: 'loeam bacs' },
-        { user: 'usman', chat: 'loeam bacs' },
-        { user: 'usman', chat: 'loeam bacs' },
-    ]);
+    const [messageList, setMessageList] = useState([]);
     // add this in component of  chat
     const [chat, setChat] = useState('');
     const [allUsers, setAllUsers] = useState([]);
     useEffect(() => {
+        console.log(process.env.REACT_APP_BASE_URL);
         socket.on('connection', () => {
             console.log(' connected');
         });
         socket.on('userList', (allUsers) => {
-            console.log('didMount', allUsers);
             setAllUsers(allUsers);
         });
         socket.on('message', (data) => {
-            // console.log(data);
+            toast.success(data.chat);
         });
 
-        // setAllUsers([{}]);
         socket.on('disconnect', () => {
             console.log(' disconnected');
         });
@@ -43,8 +38,11 @@ function App() {
         });
 
         socket.on('userList', (allUsers) => {
-            console.log('didUpdate', allUsers);
             setAllUsers(allUsers);
+        });
+
+        socket.on('oldMessages', (data) => {
+            setMessageList(data || []);
         });
     }, [socket, messageList]);
 
